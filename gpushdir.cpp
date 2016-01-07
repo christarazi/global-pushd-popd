@@ -13,6 +13,10 @@
 
 using namespace std;
 
+/*
+ * This file is responsible for handling the pushing functionality of this utility.
+ */
+
 // Global variables
 key_t key;
 int shmid;
@@ -34,12 +38,9 @@ void getSharedMemory()
 
 void attachSharedMemory()
 {
-	printf("getting stack ptr from memory\n");
 	stack = (Stack*) shmat(shmid, NULL, 0);
-	printf("stack->size = %i\n", stack->size);
 	if (stack->size == 0)
 	{
-		printf("initializing new stack\n");
 		stackInitialize(stack);
 	}
 	return;
@@ -96,14 +97,12 @@ int main(int argc, char* argv[])
 	struct stat info;
 	if (stat(argv[1], &info) != 0)
 	{
-		//perror("stat");
 		printf("error: '%s' is not a file or directory\n", argv[1]);
 		exit(-1);
 	}
 
-	if (info.st_mode & S_IFDIR)
-		printf("is directory\n");
-	else
+	// Produce error if argv[1] is not a directory.
+	if (!info.st_mode & S_IFDIR)
 	{
 		printf("error: '%s' is not a directory\n", argv[1]);
 		exit(-1);
@@ -117,14 +116,13 @@ int main(int argc, char* argv[])
 	char resolvedPath[PATH_MAX];
 
 	realpath(argv[1], resolvedPath);
-	printf("resolvedPath = %s\n", resolvedPath);
 
 	// Copy resolved path to instance of stack element
+	// Don't forget to copy over the null terminator as well.
 	strncpy(elem.path, resolvedPath, strlen(resolvedPath)+1);
 
 	// Push full path to stack
 	stackPush(stack, elem);
-	printf("stack size: %i\n", stack->size);
 
 	return 0;
 }

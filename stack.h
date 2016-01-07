@@ -2,11 +2,14 @@
 
 #define MAX_STACK_SIZE 100
 
+// This struct represents an element of our stack.
+// Our path is bounded by the Linux path limit.
 struct ElemStack
 {
 	char path[PATH_MAX];
 };
 
+// This struct represents our stack where all the directories will be pushed to.
 struct Stack
 {
 	ElemStack element[MAX_STACK_SIZE];

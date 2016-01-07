@@ -1,5 +1,5 @@
 echo "running make..."
-make
+make > /dev/null
 echo -n "done"
 echo ""
 
@@ -15,7 +15,8 @@ echo -n "done"
 echo ""
 
 echo "running make clean..."
-make clean
+make clean > /dev/null
 echo "done" 
 echo "success"
+
 exit
