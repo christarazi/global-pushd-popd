@@ -25,8 +25,8 @@ function gpopdir() {
 ## Usage
 
 - `$ gpushdir <directory>` will push a directory onto the stack.
-- `$ gpushdir -r` will deallocate the shared memory.
-- `$ gpopdir` will pop the directory from the stack and `cd` into it.
+- `$ gpushdir -r` will deallocate the shared memory (stack).
+- `$ gpopdir` will pop a directory from the stack and `cd` into it.
 
 ## Todo
 
