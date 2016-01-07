@@ -5,8 +5,8 @@ The stack is not bound by a terminal process. You can push a directory from one 
 
 ## Info
 
-- Utilizes IPC in from of shared memory. The stack is stored in shared memory which makes it "global".
-- Adds a function in `.bashrc` that wraps the call to the popping utility. The reason for this is because a process cannot change a terminal's working direcotry, so we need a way to have the terminal "make" the call. The funciton is very simple:
+- Utilizes IPC in form of shared memory. The stack is stored in shared memory which makes it "global".
+- To make the popping utility work, I needed to add a function in `.bashrc` that wraps the call to the popping utility. The reason for this is because a process cannot change a terminal's working direcotry, so we need a way to have the terminal "make" the call. The funciton is very simple:
 
 ```shell
 function gpopdir() {
