@@ -19,8 +19,8 @@ function gpopdir() {
 
 ## Installation
 
-- `./configure.sh` will compile the files, modify the `.bashrc`, and copy the executables to `/usr/local/bin/`.
-  - Note: this will need `sudo` privledges.
+- `./configure` will compile the files, modify the `.bashrc`, and copy the executables to `/usr/local/bin/` (or a directory of your choice).
+  - Note: this will need `sudo` privledges to modify the `.bashrc` and to install to a system directory.
 
 ## Usage
 
@@ -31,3 +31,8 @@ function gpopdir() {
 ## Todo
 
 - Remove the `-r` option and implement the deallocation of the shared memory when the stack is being popped when empty.
+
+## Contribution
+
+- I encourage anyone to fork and submit a pull request if you have improvement.
+- Please do leave your feedback.
