@@ -1,0 +1,118 @@
+#!/bin/bash
+
+# Highlight question prompts light blue
+show_question() {
+	echo -e "\033[1;34m$@\033[0m"
+}
+
+# Highlight directories green
+show_dir() {
+	echo -e "\033[1;32m$@\033[0m"
+}
+
+# Highlight errors red
+show_error() {
+	echo -e "\033[1;31m$@\033[0m"
+}
+
+# Highlight code purple
+show_code() {
+	echo -e "\033[1;35m$@\033[0m"
+}
+
+function main {
+	echo -n "Running make..."
+	make > /dev/null
+	echo -n "done"
+	echo
+	echo
+
+	# Prompt user if they permit modifying the .bashrc file
+	echo -n "Looking for .bashrc ..."
+	if [[ -f ~/.bashrc ]]; then
+		echo -n "file found"
+		echo
+	else
+		show_error "No .bashrc found on system, exiting..."
+		exit -1
+	fi
+	show_question 'Modifying .bashrc file with the below. Proceed? (y/n): '
+	show_code "\n\t# Function for wrapping the output of global_pop_dir so we can cd.\n\tfunction gpopdir() {\n\t\tcd \"\$(global_pop_dir)\"\n\t}"
+	echo
+	read input
+	case $input in
+		[Yy]* ) echo -e "\n# Function for wrapping the output of global_pop_dir so we can cd.\nfunction gpopdir() {\n\tcd \"\$(global_pop_dir)\"\n}" >> ~/.bashrc
+				;;
+		[Nn]* )	echo; show_error "This tool depends on this function to allow popping from the stack."
+				exit -1
+				;;
+		* ) echo; show_error "Not valid input."; 
+			exit -1
+			;;
+	esac
+
+	# Prompt user on installation directory
+	echo
+	echo "Install executables to: "
+	echo
+	show_dir '\t/usr/local/bin'
+	echo
+	show_question "Note: you'll receive an error 'cp: ...are same file' if directory specified does not exit."
+	show_question "Proceed? (y/n) [enter n if you'd like to specify a directory]: "
+	read input
+	default="/usr/local/bin"
+	case "$input" in
+		[Yy]* ) input=$default
+				;;
+		[Nn]* ) show_question "Directory: "
+				read -e dir
+				# Getting absolute directory
+				prevdir="$(pwd)"
+				echo "$absdir"
+				absdir="$(eval cd "$dir"; pwd)"
+				echo "$absdir"
+				if [[ ! -d "$absdir" ]]; then
+					echo; show_error "Not a valid directory."; exit -1;
+				fi
+				input=$absdir
+				cd "$prevdir"
+				;;
+		* ) echo; show_error "Please enter y/n."; exit -1
+			;;
+	esac
+
+	# Begin installation
+	echo
+	echo "Installing executables files to: "
+	show_dir "\t"$input""
+	cp gpushdir "$input"
+	cp global_pop_dir "$input"
+	echo
+	echo "Done"
+	echo
+
+	# Clean up after ourselves and exit
+	echo -n "Running make clean..."
+	make clean > /dev/null
+	echo  -n "done" 
+	echo
+
+	exit 0
+}
+
+# ----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
+
+clear
+
+show_question 'Proceed with install? (y/n): ' 
+read input
+case $input in
+	[Yy]* ) main
+			;;
+	[Nn]* )	exit -1
+			;;
+	* ) echo; show_error "Not valid input."
+		exit -1
+		;;
+esac
