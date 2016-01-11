@@ -31,8 +31,11 @@ function gpopdir() {
 ## Todo
 
 - Remove the `-r` option and implement the deallocation of the shared memory when the stack is being popped when empty.
+- Add ability to list the contents of the stack.
+- Add ability to clear the stack.
+- Add ability to have multiple stacks.
+- Include `-u` option for automatic updating of the program.
 
 ## Contribution
 
-- I encourage anyone to fork and submit a pull request if you have improvement.
-- Please do leave your feedback.
+- If you have an idea or found something to fix, please fork and submit a pull request. I appreciate your feedback as well.
