@@ -58,12 +58,35 @@ void deallocateSharedMemory()
 
 int main(int argc, char* argv[])
 {
+	// Sanity checks arguments
+	if (argc < 1 || argc > 2)
+	{
+		printf("usage: <%s> [-l]\n", argv[0]);
+		exit(-1);
+	}
+
 	// Get key for shared memory
 	key = ftok("gpushd", 'Q');
 
-	// Get shared memory and attach it to <stack> 
+	// Get shared memory and attach to stack.
 	getSharedMemory();	
 	attachSharedMemory();
+
+	// Process command line arguments
+	int option = 0;
+	while ((option = getopt(argc, argv, "l")) != -1)
+	{
+		switch (option)
+		{
+			case 'l': 
+				stackList(stack);
+				exit(0);
+
+			default: 
+				printf("usage: <%s> [-l]\n", argv[0]);
+				exit(-1);
+		}
+	}
 
 	/* 
 	 * Pop a directory from the stack and print it out.

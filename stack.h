@@ -21,6 +21,11 @@ void stackInitialize(Stack *s)
 	s->size = 0;
 }
 
+/**
+ * Pop an element from the stack and return it.
+ * @param s: the instance of the Stack.
+ * @return:  return the popped element. 
+ */
 ElemStack stackPop(Stack *s)
 {
 	if (s->size == 0)
@@ -35,6 +40,11 @@ ElemStack stackPop(Stack *s)
 	return elem;
 }
 
+/**
+ * Push an element to the stack.
+ * @param s: the instance of the Stack.
+ * @param el: the element to push to the stack.
+ */
 void stackPush(Stack *s, ElemStack el)
 {
 	if (s->size < MAX_STACK_SIZE)
@@ -43,3 +53,19 @@ void stackPush(Stack *s, ElemStack el)
 	}
 }
 
+/**
+ * List the contents of the stack top to bottom.
+ * @param s: the instance of the Stack.
+ */
+void stackList(Stack *s)
+{
+	if (s->size != 0)
+	{
+		printf("Top\n");
+		for (int i = s->size - 1; i >= 0; --i)
+		{
+			printf("\t%s\n", s->element[i].path);
+		}
+		printf("Bottom\n");
+	}
+}

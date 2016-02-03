@@ -37,11 +37,11 @@ function main {
 		exit -1
 	fi
 	show_question 'Modifying .bashrc file with the below. Proceed? (y/n): '
-	show_code "\n\t# Function for wrapping the output of global_pop_dir so we can cd.\n\tfunction gpopdir() {\n\t\tcd \"\$(global_pop_dir)\"\n\t}"
+	show_code "\n# Function for wrapping the output of global_pop_dir so we can cd.\nfunction gpopdir() {\n\tif [ \"\$#\" -eq 0 ]\n\tthen\n\t\tcd \"\$(global_pop_dir)\"\n\telse\n\t\tglobal_pop_dir \"\$@\"\n\tfi\n}"
 	echo
 	read input
 	case $input in
-		[Yy]* ) echo -e "\n# Function for wrapping the output of global_pop_dir so we can cd.\nfunction gpopdir() {\n\tcd \"\$(global_pop_dir)\"\n}" >> ~/.bashrc
+		[Yy]* ) echo -e "# Function for wrapping the output of global_pop_dir so we can cd.\nfunction gpopdir() {\n\tif [ \"\$#\" -eq 0 ]\n\tthen\n\t\tcd \"\$(global_pop_dir)\"\n\telse\n\t\tglobal_pop_dir \"\$@\"\n\tfi\n}" >> ~/.bashrc
 				;;
 		[Nn]* )	echo; show_error "This tool depends on this function to allow popping from the stack."
 				exit -1
