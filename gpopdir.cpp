@@ -1,5 +1,5 @@
 #include <sys/types.h>
-#include <sys/ipc.h> 
+#include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
 #include <stdlib.h>
@@ -20,7 +20,7 @@ key_t key;
 int shmid;
 Stack* stack;
 
-/* 
+/*
  * The following functions: getSharedMemory(), attackSharedMemory(), and deallocateSharedMemory()
  * are wrappers for the shared memory system calls. This is for cleaner code and less clutter.
  */
@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 	key = ftok("gpushd", 'Q');
 
 	// Get shared memory and attach to stack.
-	getSharedMemory();	
+	getSharedMemory();
 	attachSharedMemory();
 
 	// Process command line arguments
@@ -83,7 +83,7 @@ int main(int argc, char* argv[])
 	{
 		switch (option)
 		{
-			case 'l': 
+			case 'l':
 				stackList(stack);
 				exit(0);
 			default:
@@ -92,10 +92,10 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	/* 
+	/*
 	 * Pop a directory from the stack and print it out.
 	 * The gpopdir() function we added to the bashrc (with configure script)
-	 * file will take this output and feed it into cd.
+	 * file will take this output and feed it into the cd built-in command.
 	 * If the stack is empty, it will just return the current directory (".").
 	 */
 	ElemStack elem = stackPop(stack);

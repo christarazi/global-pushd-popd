@@ -1,5 +1,5 @@
 #include <sys/types.h>
-#include <sys/ipc.h> 
+#include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
 #include <linux/limits.h>
@@ -22,7 +22,7 @@ key_t key;
 int shmid;
 Stack* stack;
 
-/* 
+/*
  * The following functions: getSharedMemory(), attackSharedMemory(), and deallocateSharedMemory()
  * are wrappers for the shared memory system calls. This is for cleaner code and less clutter.
  */
@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
 	{
 		switch (option)
 		{
-			case 'r': 
+			case 'r':
 				removeFlag = true;
 				break;
 			default:
