@@ -80,12 +80,12 @@ int main(int argc, char* argv[])
 	{
 		switch (option)
 		{
-			case 'r':
-				removeFlag = true;
-				break;
-			default:
-				printUsageHelp();
-				exit(-1);
+		case 'r':
+			removeFlag = true;
+			break;
+		default:
+			printUsageHelp();
+			exit(-1);
 		}
 	}
 

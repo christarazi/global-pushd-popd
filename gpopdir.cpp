@@ -83,12 +83,12 @@ int main(int argc, char* argv[])
 	{
 		switch (option)
 		{
-			case 'l':
-				stackList(stack);
-				exit(0);
-			default:
-				printUsageHelp();
-				exit(-1);
+		case 'l':
+			stackList(stack);
+			exit(0);
+		default:
+			printUsageHelp();
+			exit(-1);
 		}
 	}
 
