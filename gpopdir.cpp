@@ -29,7 +29,7 @@ void getSharedMemory()
 	if ((shmid = shmget(key, sizeof(Stack), IPC_EXCL)) == -1)
 	{
 		perror("shmget");
-		fprintf(stderr, "%s\n", "stack may not have been allocated, push to stack first");
+		cerr << "Error: no stack found, push to stack first\n";
 		exit(-1);
 	}
 	return;
@@ -56,12 +56,17 @@ void deallocateSharedMemory()
 	return;
 }
 
+void printUsageHelp()
+{
+	cerr << "usage: <" << argv[0] << "> [-l]\n";
+}
+
 int main(int argc, char* argv[])
 {
 	// Sanity checks arguments
 	if (argc < 1 || argc > 2)
 	{
-		printf("usage: <%s> [-l]\n", argv[0]);
+		printUsageHelp();
 		exit(-1);
 	}
 
@@ -81,9 +86,8 @@ int main(int argc, char* argv[])
 			case 'l': 
 				stackList(stack);
 				exit(0);
-
-			default: 
-				printf("usage: <%s> [-l]\n", argv[0]);
+			default:
+				printUsageHelp();
 				exit(-1);
 		}
 	}
@@ -95,7 +99,7 @@ int main(int argc, char* argv[])
 	 * If the stack is empty, it will just return the current directory (".").
 	 */
 	ElemStack elem = stackPop(stack);
-	printf("%s", elem.path);
+	cout << elem.path;
 
 	return 0;
 }

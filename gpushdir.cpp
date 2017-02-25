@@ -56,12 +56,17 @@ void deallocateSharedMemory()
 	return;
 }
 
+void printUsageHelp()
+{
+	cerr << "usage: <" << argv[0] << "> [-r] <dirpath>\n";
+}
+
 int main(int argc, char* argv[])
 {
 	// Sanity checks arguments
 	if (argc < 2)
 	{
-		printf("usage: <%s> [-r] <%s>\n", argv[0], "directory path");
+		printUsageHelp();
 		exit(-1);
 	}
 
@@ -78,8 +83,8 @@ int main(int argc, char* argv[])
 			case 'r': 
 				removeFlag = true;
 				break;
-			default: 
-				printf("usage: <%s> [-r] <%s>\n", argv[0], "directory path");
+			default:
+				printUsageHelp();
 				exit(-1);
 		}
 	}
@@ -89,22 +94,22 @@ int main(int argc, char* argv[])
 	{
 		getSharedMemory();
 		deallocateSharedMemory();
-		printf("shmid %i deallocated\n", shmid);
+		cerr << "shmid " << shmid << " deallocated\n";
 		exit(0);
 	}
 
 	// Sanity check on the argument if it's a valid directory or file
-	struct stat info;
+	stat info;
 	if (stat(argv[1], &info) != 0)
 	{
-		printf("error: '%s' is not a file or directory\n", argv[1]);
+		perror("stat");
 		exit(-1);
 	}
 
 	// Produce error if argv[1] is not a directory.
 	if (!info.st_mode & S_IFDIR)
 	{
-		printf("error: '%s' is not a directory\n", argv[1]);
+		cerr << "error: '" << argv[1] << "' is not a directory\n";
 		exit(-1);
 	}
 
