@@ -1,15 +1,14 @@
-#include <sys/types.h>
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#include <sys/stat.h>
-#include <linux/limits.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
 #include <unistd.h>
-#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/ipc.h>
 #include <iostream>
 
 #include "stack.h"
+#include "helper.h"
 
 using namespace std;
 
@@ -17,48 +16,9 @@ using namespace std;
  * This file is responsible for handling the pushing functionality of this utility.
  */
 
-// Global variables
-key_t key;
-int shmid;
-Stack* stack;
-
-/*
- * The following functions: getSharedMemory(), attackSharedMemory(), and deallocateSharedMemory()
- * are wrappers for the shared memory system calls. This is for cleaner code and less clutter.
- */
-void getSharedMemory()
+void printUsageHelp(char *name)
 {
-	if ((shmid = shmget(key, sizeof(Stack), IPC_CREAT | 0666)) == -1)
-	{
-		perror("shmget");
-		exit(-1);
-	}
-	return;
-}
-
-void attachSharedMemory()
-{
-	stack = (Stack*) shmat(shmid, NULL, 0);
-	if (stack->size == 0)
-	{
-		stackInitialize(stack);
-	}
-	return;
-}
-
-void deallocateSharedMemory()
-{
-	if (shmctl(shmid, IPC_RMID, NULL) == -1)
-	{
-		perror("shmctl");
-		exit(-1);
-	}
-	return;
-}
-
-void printUsageHelp()
-{
-	cerr << "usage: <" << argv[0] << "> [-r] <dirpath>\n";
+	cerr << "usage: <" << name << "> [-r] <dirpath>\n";
 }
 
 int main(int argc, char* argv[])
@@ -66,9 +26,14 @@ int main(int argc, char* argv[])
 	// Sanity checks arguments
 	if (argc < 2)
 	{
-		printUsageHelp();
+		printUsageHelp(argv[0]);
 		exit(-1);
 	}
+
+	int shmid;
+	key_t key;
+	Stack* stack;
+	StackAction action = PUSH;
 
 	// Get key for shared memory
 	key = ftok("gpushd", 'Q');
@@ -84,7 +49,7 @@ int main(int argc, char* argv[])
 			removeFlag = true;
 			break;
 		default:
-			printUsageHelp();
+			printUsageHelp(argv[0]);
 			exit(-1);
 		}
 	}
@@ -92,14 +57,14 @@ int main(int argc, char* argv[])
 	// If -r option was supplied then deallocate the shared memory
 	if (removeFlag)
 	{
-		getSharedMemory();
-		deallocateSharedMemory();
+		shmid = getSharedMemory(key, IPC_CREAT | 0666);
+		deallocateSharedMemory(shmid);
 		cerr << "shmid " << shmid << " deallocated\n";
 		exit(0);
 	}
 
 	// Sanity check on the argument if it's a valid directory or file
-	stat info;
+	struct stat info;
 	if (stat(argv[1], &info) != 0)
 	{
 		perror("stat");
@@ -113,8 +78,8 @@ int main(int argc, char* argv[])
 		exit(-1);
 	}
 
-	getSharedMemory();
-	attachSharedMemory();
+	shmid = getSharedMemory(key, IPC_CREAT | 0666);
+	stack = attachSharedMemory(shmid, action);
 
 	// Convert relative path to full path
 	ElemStack elem;
