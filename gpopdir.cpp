@@ -24,7 +24,7 @@ void printUsageHelp(const char *name)
 int main(int argc, char* argv[])
 {
 	// Sanity checks arguments
-	if (argc < 1 || argc > 2)
+	if (argc > 2)
 	{
 		printUsageHelp(argv[0]);
 		exit(-1);
@@ -43,18 +43,29 @@ int main(int argc, char* argv[])
 	stack = attachSharedMemory(shmid, action);
 
 	// Process command line arguments
+	bool removeFlag = false;
 	int option = 0;
-	while ((option = getopt(argc, argv, "l")) != -1)
+	while ((option = getopt(argc, argv, "lr")) != -1)
 	{
 		switch (option)
 		{
 		case 'l':
 			stackList(stack);
 			exit(0);
+		case 'r':
+			removeFlag = true;
+			break;
 		default:
 			printUsageHelp(argv[0]);
 			exit(-1);
 		}
+	}
+
+	if (removeFlag)
+	{
+		deallocateSharedMemory(shmid);
+		cerr << "shmid " << shmid << " deallocated\n";
+		exit(0);
 	}
 
 	/*
