@@ -12,8 +12,13 @@ enum StackAction
 	POP
 };
 
-// This struct represents an element of our stack.
-// Our path is bounded by the Linux path limit.
+/*
+ * This struct represents an element of our stack.
+ * Our path is bounded by the Linux path limit.
+ * The reason C-style strings are being used instead of std::string is because
+ * storing std::string in shared memory is problematic, so it makes more sense
+ * to use C-style strings.
+ */
 struct ElemStack
 {
 	char path[PATH_MAX];
