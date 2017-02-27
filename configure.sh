@@ -42,9 +42,10 @@ fi
 echo "root privileges may be required for installation."
 
 make && cp $EXES -t $PREFIX
+ERR=$?
 
-if [[ $? -gt 0 ]]; then
-	exit $err
+if [[ $ERR -gt 0 ]]; then
+	exit $ERR
 fi
 
 echo "Successfully installed to $PREFIX."
