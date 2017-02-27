@@ -10,6 +10,10 @@
 
 #include "stack.h"
 
+// For ftok()
+#define KEYPATHNAME "gpushd"
+#define KEYRANDBYTE 'Q'
+
 /*
  * The following functions are wrappers for the shared memory system calls.
  * This is for cleaner code and less clutter.

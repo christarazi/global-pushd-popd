@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 	StackAction action = POP;
 
 	// Get key for shared memory
-	key = ftok("gpushd", 'Q');
+	key = ftok(KEYPATHNAME, KEYRANDBYTE);
 
 	// Get shared memory and attach to stack.
 	shmid = getSharedMemory(key, IPC_EXCL);

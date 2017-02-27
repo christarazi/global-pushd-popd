@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 	StackAction action = PUSH;
 
 	// Get key for shared memory
-	key = ftok("gpushd", 'Q');
+	key = ftok(KEYPATHNAME, KEYRANDBYTE);
 
 	// Process command line arguments
 	bool removeFlag = false;
