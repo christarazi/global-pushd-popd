@@ -29,7 +29,7 @@ ElemStack stackPop(Stack *s)
  * @param s: the instance of the Stack.
  * @param el: the element to push to the stack.
  */
-void stackPush(Stack *s, ElemStack el)
+void stackPush(Stack *s, const ElemStack el)
 {
 	if (s->size < MAX_STACK_SIZE)
 	{

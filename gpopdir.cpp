@@ -16,7 +16,7 @@ using namespace std;
  * This file is responsible for handling the popping functionality of this utility.
  */
 
-void printUsageHelp(char *name)
+void printUsageHelp(const char *name)
 {
 	cerr << "usage: <" << name << "> [-l]\n";
 }
