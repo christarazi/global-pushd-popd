@@ -28,7 +28,7 @@ struct ElemStack
 struct Stack
 {
 	ElemStack element[MAX_STACK_SIZE];
-	int size;
+	size_t size;
 };
 
 void stackInitialize(Stack *s);

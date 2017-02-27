@@ -43,7 +43,7 @@ void stackPush(Stack *s, const ElemStack el)
  */
 void stackList(Stack *s)
 {
-	if (s->size != 0)
+	if (s->size > 0)
 	{
 		std::cout << "Top\n";
 		for (int i = s->size - 1; i >= 0; --i)
