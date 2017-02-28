@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
 	}
 
 	// Produce error if argv[1] is not a directory.
-	if (!info.st_mode & S_IFDIR)
+	if (!S_ISDIR(info.st_mode))
 	{
 		cerr << "error: '" << argv[1] << "' is not a directory\n";
 		exit(-1);
