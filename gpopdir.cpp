@@ -18,7 +18,12 @@ using namespace std;
 
 void printUsageHelp(const char *name)
 {
-	cerr << "usage: <" << name << "> [-l]\n";
+	cerr << "Usage: " << name << " [-h | -l | -r]\n" <<
+		    "\n" <<
+		    "Options:\n" <<
+		    " -h            Print this help.\n" <<
+		    " -l            List contents on the stack.\n" <<
+		    " -r            Deallocate shared memory (stack).\n";
 }
 
 int main(int argc, char* argv[])
@@ -45,7 +50,7 @@ int main(int argc, char* argv[])
 	// Process command line arguments
 	bool removeFlag = false;
 	int option = 0;
-	while ((option = getopt(argc, argv, "lr")) != -1)
+	while ((option = getopt(argc, argv, "lrh")) != -1)
 	{
 		switch (option)
 		{
@@ -55,6 +60,9 @@ int main(int argc, char* argv[])
 		case 'r':
 			removeFlag = true;
 			break;
+		case 'h':
+			printUsageHelp(argv[0]);
+			exit(0);
 		default:
 			printUsageHelp(argv[0]);
 			exit(-1);
