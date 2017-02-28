@@ -1,27 +1,29 @@
 CC = g++
+CXXFLAGS = -Wall -pedantic
+LIB = lib
 OBJS = stack.o helper.o
-DEPS = stack.h helper.h
+DEPS = $(LIB)/stack.h $(LIB)/helper.h
 EXES = gpushdir global_pop_dir
 
 all: $(EXES)
 
 gpushdir: gpushdir.o $(OBJS)
-	$(CC) gpushdir.o $(OBJS) -o gpushdir
+	$(CC) $(CXXFLAGS) gpushdir.o $(OBJS) -o gpushdir
 
 global_pop_dir: gpopdir.o $(OBJS)
-	$(CC) gpopdir.o $(OBJS) -o global_pop_dir
+	$(CC) $(CXXFLAGS) gpopdir.o $(OBJS) -o global_pop_dir
 
 gpushdir.o: gpushdir.cpp $(DEPS)
-	$(CC) -c gpushdir.cpp
+	$(CC) $(CXXFLAGS) -c gpushdir.cpp
 
 gpopdir.o: gpopdir.cpp $(DEPS)
-	$(CC) -c gpopdir.cpp
+	$(CC) $(CXXFLAGS) -c gpopdir.cpp
 
-stack.o:  stack.cpp stack.h
-	$(CC) -c stack.cpp
+stack.o:  stack.cpp $(LIB)/stack.h
+	$(CC) $(CXXFLAGS) -c stack.cpp
 
-helper.o: helper.cpp helper.h
-	$(CC) -c helper.cpp
+helper.o: helper.cpp $(LIB)/helper.h
+	$(CC) $(CXXFLAGS) -c helper.cpp
 
 clean:
 	rm *.o $(EXES)

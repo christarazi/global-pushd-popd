@@ -1,14 +1,15 @@
-#include <cstdlib>
-#include <cstdio>
-#include <cstring>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <sys/ipc.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <iostream>
 
-#include "stack.h"
-#include "helper.h"
+#include "lib/helper.h"
+#include "lib/stack.h"
 
 using namespace std;
 

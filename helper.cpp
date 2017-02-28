@@ -1,4 +1,4 @@
-#include "helper.h"
+#include "lib/helper.h"
 
 int getSharedMemory(const key_t key, const int flags)
 {
@@ -14,7 +14,7 @@ int getSharedMemory(const key_t key, const int flags)
 
 Stack* attachSharedMemory(const int shmid, const StackAction action)
 {
-	Stack* stack = (Stack*) shmat(shmid, NULL, 0);
+	Stack* stack = reinterpret_cast<Stack*>(shmat(shmid, NULL, 0));
 	switch (action)
 	{
 	case PUSH:

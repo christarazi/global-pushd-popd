@@ -1,12 +1,13 @@
-#ifndef HELPER_H
-#define HELPER_H
+#ifndef LIB_HELPER_H_
+#define LIB_HELPER_H_
 
-#include <cstdlib>
-#include <sys/types.h>
+#include <linux/limits.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
-#include <linux/limits.h>
+#include <sys/types.h>
+
+#include <cstdlib>
 
 #include "stack.h"
 
@@ -22,4 +23,4 @@ int getSharedMemory(const key_t key, const int flags);
 Stack* attachSharedMemory(const int shmid, const StackAction action);
 void deallocateSharedMemory(const int shmid);
 
-#endif /* HELPER_H */
+#endif  // LIB_HELPER_H_

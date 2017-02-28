@@ -1,8 +1,9 @@
-#ifndef STACK_H
-#define STACK_H
+#ifndef LIB_STACK_H_
+#define LIB_STACK_H_
+
+#include <linux/limits.h>
 
 #include <iostream>
-#include <linux/limits.h>
 
 #define MAX_STACK_SIZE 100
 
@@ -53,4 +54,4 @@ void stackPush(Stack *s, const ElemStack el);
  */
 void stackList(Stack *s);
 
-#endif /* STACK_H */
+#endif  // LIB_STACK_H_
