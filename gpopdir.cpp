@@ -44,20 +44,17 @@ int main(int argc, char* argv[])
 	// Get key for shared memory
 	key = ftok(KEYPATHNAME, KEYRANDBYTE);
 
-	// Get shared memory and attach to stack.
-	shmid = getSharedMemory(key, IPC_EXCL);
-	stack = attachSharedMemory(shmid, action);
-
 	// Process command line arguments
 	bool removeFlag = false;
+	bool listFlag = false;
 	int option = 0;
 	while ((option = getopt(argc, argv, "lrh")) != -1)
 	{
 		switch (option)
 		{
 		case 'l':
-			stackList(stack);
-			exit(0);
+			listFlag = true;
+			break;
 		case 'r':
 			removeFlag = true;
 			break;
@@ -70,10 +67,20 @@ int main(int argc, char* argv[])
 		}
 	}
 
+	// Get shared memory and attach to stack.
+	shmid = getSharedMemory(key, IPC_EXCL);
+	stack = attachSharedMemory(shmid, action);
+
 	if (removeFlag)
 	{
 		deallocateSharedMemory(shmid);
 		cerr << "shmid " << shmid << " deallocated\n";
+		exit(0);
+	}
+
+	if (listFlag)
+	{
+		stackList(stack);
 		exit(0);
 	}
 
