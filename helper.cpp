@@ -3,8 +3,7 @@
 int getSharedMemory(key_t const key, int const flags)
 {
 	int ret;
-	if ((ret = shmget(key, sizeof(Stack), flags)) == -1)
-	{
+	if ((ret = shmget(key, sizeof(Stack), flags)) == -1) {
 		perror("shmget");
 		exit(ret);
 	}
@@ -15,11 +14,9 @@ int getSharedMemory(key_t const key, int const flags)
 Stack *attachSharedMemory(int const shmid, StackAction const action)
 {
 	Stack * const stack = reinterpret_cast<Stack*>(shmat(shmid, NULL, 0));
-	switch (action)
-	{
+	switch (action) {
 	case PUSH:
-		if (!stack)
-		{
+		if (!stack) {
 			perror("shmat");
 			exit(-1);
 		}
@@ -38,8 +35,7 @@ Stack *attachSharedMemory(int const shmid, StackAction const action)
 void deallocateSharedMemory(int const shmid)
 {
 	int err;
-	if ((err = shmctl(shmid, IPC_RMID, NULL)) == -1)
-	{
+	if ((err = shmctl(shmid, IPC_RMID, NULL)) == -1) {
 		perror("shmctl");
 		exit(err);
 	}

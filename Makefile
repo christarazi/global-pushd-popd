@@ -1,5 +1,5 @@
 CC = g++
-CXXFLAGS = -Wall -pedantic
+CXXFLAGS = -Wall -Wextra -pedantic
 LIB = lib
 OBJS = stack.o helper.o
 DEPS = $(LIB)/stack.h $(LIB)/helper.h

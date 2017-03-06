@@ -14,24 +14,24 @@
 using namespace std;
 
 /*
- * This file is responsible for handling the popping functionality of this utility.
+ * This file is responsible for handling the popping functionality of this
+ * utility.
  */
 
 void printUsageHelp(char const *name)
 {
 	cerr << "Usage: " << name << " [-h | -l | -r]\n" <<
-		    "\n" <<
-		    "Options:\n" <<
-		    " -h            Print this help.\n" <<
-		    " -l            List contents on the stack.\n" <<
-		    " -r            Deallocate shared memory (stack).\n";
+	        "\n" <<
+	        "Options:\n" <<
+	        " -h            Print this help.\n" <<
+	        " -l            List contents on the stack.\n" <<
+	        " -r            Deallocate shared memory (stack).\n";
 }
 
 int main(int argc, char *argv[])
 {
 	// Sanity checks arguments
-	if (argc > 2)
-	{
+	if (argc > 2) {
 		printUsageHelp(argv[0]);
 		exit(-1);
 	}
@@ -46,10 +46,8 @@ int main(int argc, char *argv[])
 	bool removeFlag = false;
 	bool listFlag = false;
 	int option = 0;
-	while ((option = getopt(argc, argv, "lrh")) != -1)
-	{
-		switch (option)
-		{
+	while ((option = getopt(argc, argv, "lrh")) != -1) {
+		switch (option) {
 		case 'l':
 			listFlag = true;
 			break;
@@ -69,15 +67,13 @@ int main(int argc, char *argv[])
 	shmid = getSharedMemory(key, IPC_EXCL);
 	Stack * const stack = attachSharedMemory(shmid, action);
 
-	if (removeFlag)
-	{
+	if (removeFlag) {
 		deallocateSharedMemory(shmid);
 		cerr << "shmid " << shmid << " deallocated\n";
 		exit(0);
 	}
 
-	if (listFlag)
-	{
+	if (listFlag) {
 		stackList(stack);
 		exit(0);
 	}

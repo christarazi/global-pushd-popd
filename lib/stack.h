@@ -7,8 +7,7 @@
 
 #define MAX_STACK_SIZE 100
 
-enum StackAction
-{
+enum StackAction {
 	PUSH,
 	POP
 };
@@ -20,14 +19,12 @@ enum StackAction
  * storing std::string in shared memory is problematic, so it makes more sense
  * to use C-style strings.
  */
-struct ElemStack
-{
+struct ElemStack {
 	char path[PATH_MAX];
 };
 
 // This struct represents our stack where all the directories will be pushed to.
-struct Stack
-{
+struct Stack {
 	ElemStack element[MAX_STACK_SIZE];
 	size_t size;
 };

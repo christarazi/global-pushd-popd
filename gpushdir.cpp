@@ -14,23 +14,23 @@
 using namespace std;
 
 /*
- * This file is responsible for handling the pushing functionality of this utility.
+ * This file is responsible for handling the pushing functionality of this
+ * utility.
  */
 
 void printUsageHelp(char const *name)
 {
 	cerr << "Usage: " << name << " [-h | -r] <dirpath>\n" <<
-		    "\n" <<
-		    "Options:\n" <<
-		    " -h            Print this help.\n" <<
-		    " -r            Deallocate shared memory (stack).\n";
+	        "\n" <<
+	        "Options:\n" <<
+	        " -h            Print this help.\n" <<
+	        " -r            Deallocate shared memory (stack).\n";
 }
 
 int main(int argc, char *argv[])
 {
 	// Sanity checks arguments
-	if (argc < 2)
-	{
+	if (argc < 2) {
 		printUsageHelp(argv[0]);
 		exit(-1);
 	}
@@ -44,10 +44,8 @@ int main(int argc, char *argv[])
 	// Process command line arguments
 	bool removeFlag = false;
 	int option = 0;
-	while ((option = getopt(argc, argv, "rh")) != -1)
-	{
-		switch (option)
-		{
+	while ((option = getopt(argc, argv, "rh")) != -1) {
+		switch (option) {
 		case 'r':
 			removeFlag = true;
 			break;
@@ -61,8 +59,7 @@ int main(int argc, char *argv[])
 	}
 
 	// If -r option was supplied then deallocate the shared memory
-	if (removeFlag)
-	{
+	if (removeFlag) {
 		shmid = getSharedMemory(key, IPC_CREAT | 0666);
 		deallocateSharedMemory(shmid);
 		cerr << "shmid " << shmid << " deallocated\n";
@@ -71,15 +68,13 @@ int main(int argc, char *argv[])
 
 	// Sanity check on the argument if it's a valid directory or file
 	struct stat info;
-	if (stat(argv[1], &info) != 0)
-	{
+	if (stat(argv[1], &info) != 0) {
 		perror("stat");
 		exit(-1);
 	}
 
 	// Produce error if argv[1] is not a directory.
-	if (!S_ISDIR(info.st_mode))
-	{
+	if (!S_ISDIR(info.st_mode)) {
 		cerr << "error: '" << argv[1] << "' is not a directory\n";
 		exit(-1);
 	}

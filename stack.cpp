@@ -12,8 +12,7 @@ void stackInitialize(Stack * const s)
  */
 ElemStack stackPop(Stack * const s)
 {
-	if (s->size == 0)
-	{
+	if (s->size == 0) {
 		ElemStack elem = {"."};
 		return elem;
 	}
@@ -31,8 +30,7 @@ ElemStack stackPop(Stack * const s)
  */
 void stackPush(Stack * const s, ElemStack const el)
 {
-	if (s->size < MAX_STACK_SIZE)
-	{
+	if (s->size < MAX_STACK_SIZE) {
 		s->element[s->size++] = el;
 	}
 }
@@ -43,8 +41,7 @@ void stackPush(Stack * const s, ElemStack const el)
  */
 void stackList(Stack * const s)
 {
-	if (s->size > 0)
-	{
+	if (s->size > 0) {
 		std::cout << "Top\n";
 		for (int i = s->size - 1; i >= 0; --i)
 			std::cout << "\t" << s->element[i].path << "\n";
