@@ -1,6 +1,6 @@
 #include "lib/helper.h"
 
-int getSharedMemory(const key_t key, const int flags)
+int getSharedMemory(key_t const key, int const flags)
 {
 	int ret;
 	if ((ret = shmget(key, sizeof(Stack), flags)) == -1)
@@ -12,9 +12,9 @@ int getSharedMemory(const key_t key, const int flags)
 	return ret;
 }
 
-Stack* attachSharedMemory(const int shmid, const StackAction action)
+Stack *attachSharedMemory(int const shmid, StackAction const action)
 {
-	Stack* stack = reinterpret_cast<Stack*>(shmat(shmid, NULL, 0));
+	Stack * const stack = reinterpret_cast<Stack*>(shmat(shmid, NULL, 0));
 	switch (action)
 	{
 	case PUSH:
@@ -35,7 +35,7 @@ Stack* attachSharedMemory(const int shmid, const StackAction action)
 	return stack;
 }
 
-void deallocateSharedMemory(const int shmid)
+void deallocateSharedMemory(int const shmid)
 {
 	int err;
 	if ((err = shmctl(shmid, IPC_RMID, NULL)) == -1)

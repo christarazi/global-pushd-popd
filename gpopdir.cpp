@@ -17,7 +17,7 @@ using namespace std;
  * This file is responsible for handling the popping functionality of this utility.
  */
 
-void printUsageHelp(const char *name)
+void printUsageHelp(char const *name)
 {
 	cerr << "Usage: " << name << " [-h | -l | -r]\n" <<
 		    "\n" <<
@@ -27,7 +27,7 @@ void printUsageHelp(const char *name)
 		    " -r            Deallocate shared memory (stack).\n";
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	// Sanity checks arguments
 	if (argc > 2)
@@ -37,12 +37,10 @@ int main(int argc, char* argv[])
 	}
 
 	int shmid;
-	key_t key;
-	Stack* stack;
-	StackAction action = POP;
+	StackAction const action = POP;
 
 	// Get key for shared memory
-	key = ftok(KEYPATHNAME, KEYRANDBYTE);
+	key_t const key = ftok(KEYPATHNAME, KEYRANDBYTE);
 
 	// Process command line arguments
 	bool removeFlag = false;
@@ -69,7 +67,7 @@ int main(int argc, char* argv[])
 
 	// Get shared memory and attach to stack.
 	shmid = getSharedMemory(key, IPC_EXCL);
-	stack = attachSharedMemory(shmid, action);
+	Stack * const stack = attachSharedMemory(shmid, action);
 
 	if (removeFlag)
 	{

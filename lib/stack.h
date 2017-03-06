@@ -32,26 +32,26 @@ struct Stack
 	size_t size;
 };
 
-void stackInitialize(Stack *s);
+void stackInitialize(Stack * const s);
 
 /**
  * Pop an element from the stack and return it.
  * @param s: the instance of the Stack.
  * @return:  return the popped element.
  */
-ElemStack stackPop(Stack *s);
+ElemStack stackPop(Stack * const s);
 
 /**
  * Push an element to the stack.
  * @param s: the instance of the Stack.
  * @param el: the element to push to the stack.
  */
-void stackPush(Stack *s, const ElemStack el);
+void stackPush(Stack * const s, const ElemStack el);
 
 /**
  * List the contents of the stack top to bottom.
  * @param s: the instance of the Stack.
  */
-void stackList(Stack *s);
+void stackList(Stack * const s);
 
 #endif  // LIB_STACK_H_

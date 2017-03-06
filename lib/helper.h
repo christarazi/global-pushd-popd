@@ -19,8 +19,8 @@
  * The following functions are wrappers for the shared memory system calls.
  * This is for cleaner code and less clutter.
  */
-int getSharedMemory(const key_t key, const int flags);
-Stack* attachSharedMemory(const int shmid, const StackAction action);
-void deallocateSharedMemory(const int shmid);
+int getSharedMemory(key_t const key, int const flags);
+Stack *attachSharedMemory(int const shmid, StackAction const action);
+void deallocateSharedMemory(int const shmid);
 
 #endif  // LIB_HELPER_H_

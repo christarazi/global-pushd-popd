@@ -1,6 +1,6 @@
 #include "lib/stack.h"
 
-void stackInitialize(Stack *s)
+void stackInitialize(Stack * const s)
 {
 	s->size = 0;
 }
@@ -10,7 +10,7 @@ void stackInitialize(Stack *s)
  * @param s: the instance of the Stack.
  * @return:  return the popped element.
  */
-ElemStack stackPop(Stack *s)
+ElemStack stackPop(Stack * const s)
 {
 	if (s->size == 0)
 	{
@@ -29,7 +29,7 @@ ElemStack stackPop(Stack *s)
  * @param s: the instance of the Stack.
  * @param el: the element to push to the stack.
  */
-void stackPush(Stack *s, const ElemStack el)
+void stackPush(Stack * const s, ElemStack const el)
 {
 	if (s->size < MAX_STACK_SIZE)
 	{
@@ -41,7 +41,7 @@ void stackPush(Stack *s, const ElemStack el)
  * List the contents of the stack top to bottom.
  * @param s: the instance of the Stack.
  */
-void stackList(Stack *s)
+void stackList(Stack * const s)
 {
 	if (s->size > 0)
 	{
