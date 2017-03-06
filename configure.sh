@@ -2,7 +2,7 @@
 
 PREFIX='/usr/local/bin'
 CC='g++'
-EXES='gpushdir global_pop_dir'
+EXES='bin'
 
 print_usage() {
 	cat <<-EOF
@@ -41,7 +41,7 @@ fi
 
 echo "root privileges may be required for installation."
 
-make && cp $EXES -t $PREFIX
+make && cp $EXES/* -t $PREFIX
 ERR=$?
 
 if [[ $ERR -gt 0 ]]; then

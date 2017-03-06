@@ -8,8 +8,8 @@
 #include <cstring>
 #include <iostream>
 
-#include "lib/helper.h"
-#include "lib/stack.h"
+#include "../include/helper.h"
+#include "../include/stack.h"
 
 using namespace std;
 

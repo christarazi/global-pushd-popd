@@ -1,4 +1,4 @@
-#include "lib/stack.h"
+#include "../include/stack.h"
 
 void stackInitialize(Stack * const s)
 {

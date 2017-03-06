@@ -1,4 +1,4 @@
-#include "lib/helper.h"
+#include "../include/helper.h"
 
 int getSharedMemory(key_t const key, int const flags)
 {
