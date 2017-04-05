@@ -1,5 +1,5 @@
-#ifndef LIB_HELPER_H_
-#define LIB_HELPER_H_
+#ifndef INCLUDE_HELPER_H_
+#define INCLUDE_HELPER_H_
 
 #include <linux/limits.h>
 #include <sys/ipc.h>
@@ -9,7 +9,7 @@
 
 #include <cstdlib>
 
-#include "stack.h"
+#include "../include/stack.h"
 
 // For ftok()
 #define KEYPATHNAME "gpushd"
@@ -23,4 +23,4 @@ int getSharedMemory(key_t const key, int const flags);
 Stack *attachSharedMemory(int const shmid, StackAction const action);
 void deallocateSharedMemory(int const shmid);
 
-#endif  // LIB_HELPER_H_
+#endif  // INCLUDE_HELPER_H_

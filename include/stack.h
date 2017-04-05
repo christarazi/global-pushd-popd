@@ -1,5 +1,5 @@
-#ifndef LIB_STACK_H_
-#define LIB_STACK_H_
+#ifndef INCLUDE_STACK_H_
+#define INCLUDE_STACK_H_
 
 #include <linux/limits.h>
 
@@ -51,4 +51,4 @@ void stackPush(Stack * const s, const ElemStack el);
  */
 void stackList(Stack * const s);
 
-#endif  // LIB_STACK_H_
+#endif  // INCLUDE_STACK_H_
