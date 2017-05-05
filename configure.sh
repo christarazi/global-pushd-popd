@@ -41,6 +41,8 @@ fi
 
 echo "root privileges may be required for installation."
 
+mkdir build bin
+
 make && cp $EXES/* -t $PREFIX
 ERR=$?
 
