@@ -1,5 +1,5 @@
-# global-pushd-popd
-A global pushd/popd-like utility designed to behave exactly like `pushd` and
+# pushpopdir
+A pushd/popd-like utility designed to behave exactly like `pushd` and
 `popd` except with a global stack.
 
 The stack is not bound by a terminal process unlike the original commands. You
@@ -65,10 +65,10 @@ $ gpopdir -l               # List contents of the stack from top to bottom.
 ## Todo
 
 - ~~Remove the `-r` option and implement the deallocation of the shared memory
-when the stack is being popped when empty.~~ No need for this as it can be 
+when the stack is being popped when empty.~~ No need for this as it can be
 used to clear the stack.
 - ~~Add ability to list the contents of the stack.~~
-- ~~Add ability to clear the stack.~~ Deallocating the stack already does 
+- ~~Add ability to clear the stack.~~ Deallocating the stack already does
 this.
 - Add ability to have multiple stacks.
 - Include `-u` option for automatic updating of the program.
