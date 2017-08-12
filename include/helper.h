@@ -24,6 +24,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include <cstdio>
 #include <cstdlib>
 
 #include "../include/stack.h"
